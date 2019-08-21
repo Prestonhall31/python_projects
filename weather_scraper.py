@@ -5,11 +5,15 @@ page = requests.get("https://weather.com/en-IN/weather/today/l/97003:4:US")
 
 soup = BeautifulSoup(page.content,"html.parser")
 
+# Print all of the data from the Right Now field. 
 all = soup.find("div",{"class":"today_nowcard-sidecar component panel"})
-
 print(all)
 
+# Assign the wind data to wind varaiable and print to screen. 
+wind = all.find("span",{"class":""})
+print(wind.text)
 
+# Current output. Need to separate the data and print to the screen.
 '''
 <div class="today_nowcard-sidecar component panel">
     <table>
