@@ -1,5 +1,5 @@
 '''
-This code pull data from the weather.com website and stores the current weather data in a dicstionary
+This code pull data from the weather.com website and stores the current weather data in a dictionary
 '''
 
 import requests
@@ -11,7 +11,18 @@ def current_weather():
 
     soup = BeautifulSoup(page.content,"html.parser")
 
-    # Print all of the data from the Right Now field. 
+    # Pull current weather and assign to variables
+    weather_data = soup.find("div",{"class":"today_nowcard-section today_nowcard-condition"}).text
+    temp = soup.find("div",{"today_nowcard-temp"}).text
+    phrase = soup.find("div",{"today_nowcard-phrase"}).text
+    feels = soup.find("div",{"today_nowcard-feels"}).text
+    
+    # hi = soup.find("div",{"deg-hilo-nowcard"})
+    # lo = soup.find("div",{"today_nowcard-temp"})
+
+    print("The current temperature is", temp, ".\n", "Today will be", phrase, ".\n", feels, ".")
+
+    # Pull all of the data from the Right Now field. 
     right_now = soup.find("div",{"class":"today_nowcard-sidecar component panel"})
 
     # Store data in a dictionary 
@@ -19,10 +30,10 @@ def current_weather():
     for span_tag in right_now.find_all('th'):
         data[span_tag.text] = span_tag.next_sibling.text
 
-    return data
+    # return data
 
-    # for k, v in data.items():
-    #     print(k, ": ", v)
+    for k, v in data.items():
+        print(k, ": ", v)
 
 
 if __name__ == "__main__":
